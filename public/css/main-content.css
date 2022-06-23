@@ -1,0 +1,88 @@
+.content{
+    width: 100%;
+    padding:  0 9%;
+}
+.content .container .hot-news{
+    width: 100%;
+    height: 750px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 20px;
+
+    padding: 3% 0 ;
+}
+.content  .hot-news div{
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.content  .hot-news .page-hot-news1 {
+    grid-column: 1/3;
+    grid-row: 1/4;
+}
+.content  .hot-news .page-hot-news2
+{
+    grid-row:  1/3;
+}
+
+.content .container .whats-new {
+    margin: 6% 0;
+    width: 100%;
+
+    display: grid;
+    grid-gap: 24px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr ;
+}
+.content .whats-new .outstanding{
+    background-color: white;
+    width: 100%;
+    height: 600px;
+    border-radius: 9px;
+    grid-column: 4/5;
+    grid-row: 1/4;
+}
+.content .whats-new h2 {
+    padding: 30px 20px 20px 20px;
+}
+.content .whats-new .list-page-news{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+.content .whats-new .basketball-news,
+.content .whats-new .football-news,
+.content .whats-new .esport-news
+{
+    grid-column: 1/4;
+
+}
+.whats-new .list-page-news .page-news{
+    grid-column: 3/5;
+}
+.whats-new .list-page-news .page-news:first-child{
+    grid-column: 1/3;
+    grid-row: 1/4;
+    
+}
+
+.content .whats-new .list-page-news img
+{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.content .whats-new  .list-page-news  {
+    width: 100%;
+    padding: 20px 20px 20px 20px;
+    border-radius: 9px;
+    background-color: white;  
+}
+
+
