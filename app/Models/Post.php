@@ -17,7 +17,8 @@ class Post extends Model
         'img_post',
         'post_view',
         'creator_id',
-        'status'
+        'status',
+        'category'
     ];
 
     protected $primaryKey = 'post_id';

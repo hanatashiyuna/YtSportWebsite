@@ -4,7 +4,7 @@
         <div class="cardBox">
             <div class="card">
                 <div>
-                    <div class="numbers">{{$viewPost}}</div>
+                    <div class="numbers">{{$views}}</div>
                     <div class="cardName">Views</div>
                 </div>
                 <div class="iconBox">

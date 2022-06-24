@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- About US Start -->
 <div class="about-area2 gray-bg pt-60 pb-60">
     <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    <!-- Tittle -->
                     <div class="about-right mb-90">
                         <div class="about-img">
                             <img src="assets/img/gallery/trending_top.jpg" alt="">
@@ -35,4 +37,7 @@
             </div>
     </div>
 </div>
+
+
+
 @endsection

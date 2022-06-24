@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
 
 class PostController extends Controller
 {
@@ -12,6 +13,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:edit articles', ['only' => ['index', 'show', 'edit']]);
+    //     $this->middleware('permission:add articles', ['only' => ['index', 'store']]);
+    //     $this->middleware('permission:delete articles', ['only' => ['index', 'destroy']]);
+    //     $this->middleware('permission:publish articles', ['only' => ['index']]);
+    // }
+
     public function index()
     {
         $news = Post::all();
@@ -74,6 +84,7 @@ class PostController extends Controller
         $new_name = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
         $get_image->move($path, $new_name);
 
+        $post->category = $request->input('category');
         $post->img_post = $new_name;
         $post->post_view = 0;
         $post->creator_id = 1;
@@ -81,8 +92,6 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->back()->with('message', 'Them post thanh cong!');
-
-        //dd($post);
     }
 
     /**
@@ -93,7 +102,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $detail = Post::find($id);
+        $detail->post_view++;
+        $detail->save();
+        return view('member.show',compact('detail'));
     }
 
     /**
@@ -104,7 +116,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //return view('admin.post.edit');
+        $post = Post::find($id);
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -116,7 +129,44 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate(
+            [
+                'title' => 'required',
+                'summary' => 'required',
+                'slug' => 'required',
+
+            ],
+            [
+                'title.required' => 'Bạn chưa có tiêu đề bài viết',
+                'summary.required' => 'Bạn chưa có mô tả',
+                'slug.required' => 'Slug này đã được sử dụng',
+
+            ]
+        );
+
+        $post = Post::find($id);
+        $post->title = $data['title'];
+        // $post->content = $data['content'];
+        $post->summary = $data['summary'];
+        $post->slug = $data['slug'];
+
+        $get_image = $request->img;
+        if($get_image){
+            $path = 'uploads/post';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_name = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move($path, $new_name);
+            $post->img_post = $new_name;
+        }
+        $post->category = $request->input('category');
+        $post->content = $request->input('content');
+        $post->post_view = 0;
+        $post->creator_id = 1;
+        $post->status = 1;
+        $post->save();
+
+        return redirect()->back()->with('message', 'Cập nhật bài viết thành công!');
     }
 
     /**
@@ -127,8 +177,22 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        $post = Post::find($id);
+        $path = 'uploads/post'.$post->img_post;
+        if(file_exists($path)){
+            unlink($path);
+        }
         Post::find($id)->delete();
         return redirect()->back()->with('message', 'Xoa post thanh cong!');
+    }
+
+    public function category($category)
+    {
+    //    $category = DB::table('members')->get()->where('name',$name);
+
+       $category = Post::where('category',$category)->paginate(15);
+
+       return view('member.category', ['category' => $category]);
     }
 
 }

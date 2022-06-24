@@ -4,15 +4,13 @@
 <div class="details" style="grid-template-columns: 1fr; margin-top: 25px;">
     <div class="recentOrders">
         <div class="cardHeader">
-            <h2>Recent Post</h2>
-            <a href="#" class="btn">View All</a>
+            <h2>Recent Post/Bài viết hiện tại</h2>
         </div>
         <table>
             <thead>
                 <tr>
                     <td>Thứ Tự</td>
                     <td>Tiêu Đề</td>
-                    <td>Nội Dung</td>
                     <td>Tóm Tắt</td>
                     <td>Ảnh</td>
                     <td>Lượt Xem</td>
@@ -27,7 +25,6 @@
                 <tr>
                     <td>{{$key + 1}}</td>
                     <td>{{$new->title}}</td>
-                    <td>{{$new->content}}</td>
                     <td>{{$new->summary}}</td>
                     <td><img style="width: 40px; height: 40px;" src="{{url('uploads/post').'/'.$new->img_post }}" alt="photo"></td>
                     <td>{{$new->post_view}}</td>
@@ -55,16 +52,12 @@
                         ?>
                     </td>
                     <td>
-                        <form action="{{route('post.destroy',[$new -> post_id])}}" method="POST">
+                        <form action="{{route('post.destroy',[$new -> post_id])}}" method="POST"  style="margin-bottom: 10px;">
                             @method('DELETE')
                             @csrf
-                            <button class="btn" onclick="return confirm('Bạn có chắc muốn xóa {{$new->title}} này không?');">DELETE</button>
+                            <button style="border: 2px solid #03a9f4;" class="btn btn-manager" onclick="return confirm('Bạn có chắc muốn xóa {{$new->title}} này không?');">DELETE</button>
                         </form>
-                        <form action="{{route('post.edit',[$new -> post_id])}}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button class="btn" onclick="return confirm('Bạn có chắc muốn xóa {{$new->title}} này không?');">REPAIR</button>
-                        </form>
+                        <a href="{{route('post.edit',[$new -> post_id])}}" class="btn btn-manager">REPAIR</a>
                     </td>
                 </tr>
                 @endforeach

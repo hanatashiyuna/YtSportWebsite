@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ViewsController;
 use Illuminate\Support\Facades\Route;
 use App\Models;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Views;
 use App\Models\yuna;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,52 +25,36 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::prefix('admin')->group(function()
+Route::group(['middleware' => ['auth', 'role:admin|editer|writer']], function()
 {
-    Route::resource('/post', PostController::class);
-    Route::resource('/user', UserController::class);
-
-    Route::get('/', function(){
-        $news = Post::count();
-        $viewPost = Post::where('post_view', '0')->count();
-        return view('admin.adminmain')->with(compact('news', 'viewPost'));
-    });
-
-    // Route::get('/create', function(){
-    //     return view('admin.create');
-    // });
-
-    // Route::post('/create', function(){
-    //     return 'post done.';
-    // });
-
+    Route::resource('admin/', AdminController::class);
+    Route::resource('admin/post', PostController::class);
+    Route::resource('admin/user', UserController::class);
 });
 
 Route::prefix('/')->group(function()
 {
-    Route::get('/',function () {
-        return view('member.index');
+    Route::resource('/', ViewsController::class);
+
+    Route::get('',function(){
+        $i=1;
+        $members = Post::orderBy('post_id','DESC')->limit(3)->get();
+        $basketball = Post::where('category','basketball')->limit(4)->get();;
+        $esport =Post::where('category','esport')->limit(4)->get();;
+        $football = Post::where('category','football')->limit(4)->get();
+        return view('member.index',compact('members','i','basketball','football','esport'));
     });
 
     Route::get('/home',function () {
-        return view('member.index');
+        $i=1;
+        $members = Post::orderBy('post_id','DESC')->limit(3)->get();
+        $basketball = Post::where('category','basketball')->limit(4)->get();;
+        $esport =Post::where('category','esport')->limit(4)->get();;
+        $football = Post::where('category','football')->limit(4)->get();
+        return view('member.index',compact('members','i','basketball','football','esport'));
     })->name('home');
 
-    Route::get('basketball', function () {
-        return view('member.category');
-    })->name('basketball');
 
-    Route::get('football', function () {
-        return view('member.category');
-    })->name('football');
-
-    Route::get('volleyball', function () {
-        return view('member.category');
-    })->name('volleyball');
-
-    Route::get('esport', function () {
-        return view('member.category');
-    })->name('esport');
 });
 
 Route::prefix('categories')->group(function()
@@ -81,6 +68,12 @@ Route::prefix('categories')->group(function()
     //delete
     Route::delete('/delete-{id}', [CategoriesController::class, 'destroyCategory'])->name('categories.delete');
 });
+
+
+Route::get('blog-{id}',[PostController::class ,'show'] );
+
+Route::get('category-{name}',[PostController::class ,'category']);
+
 
 Auth::routes();
 

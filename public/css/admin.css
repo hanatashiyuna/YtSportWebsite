@@ -902,7 +902,7 @@ body {
     border-radius: 20px;
     padding: 20px;
     margin: 15px;
-    box-shadow: 5px 5px 10px black;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     outline: none;
 }
 
@@ -939,7 +939,7 @@ body {
     font-size: 16px;
     background-color: white;
     border-radius: 20px;
-    box-shadow: 5px 5px 10px black;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     outline: none;
 }
 
@@ -963,10 +963,33 @@ body {
     color: white;
     border: 0;
     border-radius: 10px;
-    box-shadow: 5px 5px 10px black;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     outline: none;
 }
 
 .btn-submit button:hover{
     background-color: #0563af;
+}
+
+
+.cols-permission select{
+    width: 150px;
+    height: 40px;
+    color: #ffffff;
+    background-color: #03a9f4;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+    outline: none;
+}
+
+.cols-permission select:hover{
+    color: #03a9f4;
+    background-color: #FFFFFF;
+}
+
+.details .recentOrders table tbody tr:hover .btn.btn-manager{
+    color: #03a9f4;
+    background-color: white;
+    border: white;
 }

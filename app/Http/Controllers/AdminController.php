@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Views;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
-use App\Models\User;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,24 +19,14 @@ class UserController extends Controller
     //     $this->middleware('permission:edit articles', ['only' => ['index', 'show', 'edit']]);
     //     $this->middleware('permission:add articles', ['only' => ['index', 'store']]);
     //     $this->middleware('permission:delete articles', ['only' => ['index', 'destroy']]);
-    //     $this->middleware('permission:publish articles', ['only' => ['index']]);
     // }
 
     public function index()
     {
-        //Role::create(['name' => 'admin']);
-        // Permission::create(['name' => 'edit articles']);
-        // Permission::create(['name' => 'add articles']);
-        // Permission::create(['name' => 'delete articles']);
-        // Permission::create(['name' => 'publish articles']);
-        // $role = Role::find(2);
-        // $permission = Permission::find(1);
-        //$Role->givePermissionTo($permission);
-        //$permission->assignRole($role);
-        //auth()->user()->assignRole(['writer','editer','publisher']);
-        $users = User::all();
-        $role = Role::all();
-        return view('admin.user.index')->with(compact('users', 'role'));
+        $news = Post::count();
+        $viewPost = Post::where('post_view', '0')->count();
+        $views = Views::where('collection', '1')->count();
+        return view('admin.adminmain')->with(compact('news', 'viewPost', 'views'));
     }
 
     /**
@@ -49,7 +36,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.edit');
+        //
     }
 
     /**
@@ -71,7 +58,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('admin.user.show');
+        //
     }
 
     /**
@@ -82,7 +69,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -95,11 +82,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-    }
-
-    public function insert_roles(Request $request, $id)
-    {
-        return view('admin.user.edit');
     }
 
     /**

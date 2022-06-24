@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="about-area2 gray-bg pt-60 pb-60">
         <div class="container">
                 <div class="row flex-around">
@@ -24,66 +23,21 @@
                                         <!-- card one -->
                                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                             <div class="row " >
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="whats-news-single mb-40 mb-40">
-                                                        <div class="whates-img">
-                                                            <img src="assets/img/gallery/whats_news_details1.png" alt="">
-                                                        </div>
-                                                        <div class="whates-caption whates-caption2">
-                                                            <h4><a href="#">tiêu đề</a></h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="whats-news-single mb-40 mb-40">
-                                                        <div class="whates-img">
-                                                            <img src="assets/img/gallery/whats_news_details2.png" alt="">
-                                                        </div>
-                                                        <div class="whates-caption whates-caption2">
-                                                            <h4><a href="#">tiêu đề</a></h4>
+                                            @if (isset($category))
+                                                @foreach ($category as $cate)
+                                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                                        <div class="whats-news-single mb-40 mb-40">
+                                                            <div class="whates-img">
+                                                                <img src="{{url('uploads/post').'/'.$cate->img_post }}" alt="photo">
+                                                            </div>
+                                                            <div class="whates-caption whates-caption2">
+                                                                <h4><a href="blog-{{$cate->post_id}}">{{$cate->title}}</a></h4>
+                                                                <p>luot xem : {{$cate->post_view}}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="whats-news-single mb-40 mb-40">
-                                                        <div class="whates-img">
-                                                            <img src="assets/img/gallery/whats_news_details3.png" alt="">
-                                                        </div>
-                                                        <div class="whates-caption whates-caption2">
-                                                            <h4><a href="#">tiêu đề</a></h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="whats-news-single mb-40 mb-40">
-                                                        <div class="whates-img">
-                                                            <img src="assets/img/gallery/whats_news_details4.png" alt="">
-                                                        </div>
-                                                        <div class="whates-caption whates-caption2">
-                                                            <h4><a href="#">tiêu đề</a></h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="whats-news-single mb-40 mb-40">
-                                                        <div class="whates-img">
-                                                            <img src="assets/img/gallery/whats_news_details5.png" alt="">
-                                                        </div>
-                                                        <div class="whates-caption whates-caption2">
-                                                            <h4><a href="#">tiêu đề</a></h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="whats-news-single mb-40 mb-40">
-                                                        <div class="whates-img">
-                                                            <img src="assets/img/gallery/whats_news_details6.png" alt="">
-                                                        </div>
-                                                        <div class="whates-caption whates-caption2">
-                                                            <h4><a href="#">tiêu đề</a></h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @endforeach
+                                            @endif
                                             </div>
                                         </div>
                                     </div>

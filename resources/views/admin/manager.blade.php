@@ -49,7 +49,7 @@
                 </li>
                 <li class="item">
                     <a href="{{ url('/admin') }}">
-                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="icon"><i class="fa-solid fa-house"></i></span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
@@ -78,8 +78,8 @@
                     </a>
                 </li>
                 <li class="item">
-                    <a href="{{url('/admin')}}">
-                        <span class="icon"><i class="fas fa-cog"></i></span>
+                    <a href="{{route('user.index')}}">
+                        <span class="icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
                         <span class="title">Setting</span>
                     </a>
                 </li>
@@ -106,7 +106,7 @@
                                 onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();
                                         return confirm('Bạn có chắc muốn đăng xuất không?');">
-                                <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+                                <span class="icon"><i class="fa-duotone fa-right-from-bracket"></i></span>
                                 <span class="title">{{ __('Log out') }}</span>
                             </a>
 
